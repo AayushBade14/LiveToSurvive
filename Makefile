@@ -16,6 +16,8 @@ OBJS = ./Main.o \
 			 ./Include/Shader/Shader.o \
 			 ./Include/stb_image/stb_image.o \
 			 ./Include/Texture/Texture.o \
+			 ./Include/Memory/VBO.o \
+			 ./Include/Memory/VAO.o \
 			 ./Include/glad/glad.o
 
 #target
