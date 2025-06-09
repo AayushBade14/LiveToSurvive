@@ -15,6 +15,7 @@ CXXFLAGS = -Wall -g -I$(INCLUDE)
 OBJS = ./Main.o \
 			 ./Include/Shader/Shader.o \
 			 ./Include/stb_image/stb_image.o \
+			 ./Include/Texture/Texture.o \
 			 ./Include/glad/glad.o
 
 #target
