@@ -53,6 +53,6 @@ class Shader{
     
     // helper methods
     const std::string& LoadFile(const std::string &path);
-    unsigned int& compileShader(const std::string &code);
+    unsigned int& compileShader(const std::string &code,bool isVertex);
     void createShaderProgram(unsigned int &vertex,unsigned int &fragment);
 };
