@@ -41,7 +41,7 @@ class Shader{
         glUniform3fv(loc,1,&value[0]);
       }
       else if constexpr(std::is_same<T,glm::mat4>::value){
-        glUniformMatrix4fv(loc,1,GL_FALSE,glm::value_ptr(matrix));
+        glUniformMatrix4fv(loc,1,GL_FALSE,glm::value_ptr(value));
       }
     }
     
@@ -52,7 +52,7 @@ class Shader{
     unsigned int ID; // shader program id
     
     // helper methods
-    const std::string& LoadFile(const std::string &path);
-    unsigned int& compileShader(const std::string &code,bool isVertex);
+    std::string loadFile(const std::string &path);
+    unsigned int compileShader(const std::string &code,bool isVertex);
     void createShaderProgram(unsigned int &vertex,unsigned int &fragment);
 };

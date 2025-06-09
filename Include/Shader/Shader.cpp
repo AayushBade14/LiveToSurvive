@@ -18,7 +18,7 @@ unsigned int& Shader::getID(){
   return ID;
 }
 
-const std::string& loadFile(const std::string &path){
+std::string Shader::loadFile(const std::string &path){
   std::ifstream shaderFile;
   std::string code;
 
@@ -41,13 +41,14 @@ const std::string& loadFile(const std::string &path){
   return code;
 }
 
-unsigned int& compileShader(const std::string &code,bool isVertex){
+unsigned int Shader::compileShader(const std::string &code,bool isVertex){
   unsigned int shader;
-  
+  const char *src = code.c_str();
+
   int success;
   char infoLog[512];
   
-  std::string log;
+  std::string log; 
   
   if(isVertex){
     shader = glCreateShader(GL_VERTEX_SHADER);
@@ -58,10 +59,10 @@ unsigned int& compileShader(const std::string &code,bool isVertex){
     log = "FRAGMENT_SHADER";
   }
 
-  glShaderSource(shader,1,&code,NULL);
+  glShaderSource(shader,1,&src,NULL);
   glCompileShader(shader);
 
-  glGetShaderiv(shader,GL_COMPILE_SHADER,&success);
+  glGetShaderiv(shader,GL_COMPILE_STATUS,&success);
   if(!success){
     glGetShaderInfoLog(shader,512,NULL,infoLog);
     std::cerr<<"ERROR: Compiling "<< log << " REASON: "<<infoLog<<std::endl;
@@ -79,7 +80,7 @@ void Shader::createShaderProgram(unsigned int &vertex,unsigned int &fragment){
   glAttachShader(ID,fragment);
   glLinkProgram(ID);
   
-  glGetProgramiv(ID,GL_LINK_PROGRAM,&success);
+  glGetProgramiv(ID,GL_LINK_STATUS,&success);
   if(!success){
     glGetProgramInfoLog(ID,512,NULL,infoLog);
     std::cerr<<"ERROR: Linking shader program. REASON: "<<infoLog<<std::endl;
