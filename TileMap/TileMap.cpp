@@ -107,7 +107,7 @@ void TileMap::loadMapData(const std::string &path){
 
 void TileMap::decideTile(int t){
   int x = t % spriteSheetCols;
-  int y = t - x;
+  int y = t/spriteSheetCols;
 
   uv_x = (float)x;
   uv_y = (float)y;

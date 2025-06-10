@@ -5,7 +5,7 @@ Player::Player(float nxf, float nyf, float frame_ps) : nxf(nxf), nyf(nyf), frame
   animTime = 0.0f;
   uv_x = 0.0f;
   uv_y = 0.0f;
-  position = glm::vec3(0.0f);
+  position = glm::vec3(960.0f,540.0f,0.0f);
 } 
 
 void Player::update(GLFWwindow *window,float dt){

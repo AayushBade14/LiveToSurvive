@@ -77,7 +77,7 @@ int main(void){
   Player player = Player(9.0f,4.0f,9.0f);
   player.speed = 100.0f;
   
-  TileMap tilemap = TileMap(window,"/home/b1n4ry/MyFolder/Projects/LiveToSurvive/Assets/mapData.csv",13,26,100.0f);
+  TileMap tilemap = TileMap(window,"/home/b1n4ry/MyFolder/Projects/LiveToSurvive/Assets/mapData.csv",13,25,100.0f);
   
   float deltaTime = 0.0f;
   float lastFrame = 0.0f;
