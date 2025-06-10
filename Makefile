@@ -19,6 +19,7 @@ OBJS = ./Main.o \
 			 ./Include/Memory/VBO.o \
 			 ./Include/Memory/VAO.o \
 			 ./Player/Player.o \
+			 ./TileMap/TileMap.o \
 			 ./Include/glad/glad.o
 
 #target
