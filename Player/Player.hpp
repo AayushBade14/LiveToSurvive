@@ -5,6 +5,14 @@
 
 #include <GLFW/glfw3.h>
 
+enum State{
+  IDLE,
+  TOP,
+  DOWN,
+  LEFT,
+  RIGHT
+};
+
 class Player{
   public:
     float nxf, nyf;
@@ -18,4 +26,9 @@ class Player{
 
     void update(GLFWwindow *window,float dt);
     void render(Shader &shader, Texture &texture);
+
+  private:
+    bool isMoving = false;
+    State playerState = State::IDLE;
+    void handlePlayerState();
 };  

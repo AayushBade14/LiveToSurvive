@@ -10,31 +10,58 @@ Player::Player(float nxf, float nyf, float frame_ps) : nxf(nxf), nyf(nyf), frame
 
 void Player::update(GLFWwindow *window,float dt){
   // handle movement controls
+  isMoving = false;
+
   if(glfwGetKey(window,GLFW_KEY_W)==GLFW_PRESS){
     position.y += speed * dt;
+    isMoving = true;
+    playerState = State::TOP;
   }
   if(glfwGetKey(window,GLFW_KEY_S)==GLFW_PRESS){
     position.y -= speed * dt;
+    isMoving = true;
+    playerState = State::DOWN;
   } 
   if(glfwGetKey(window,GLFW_KEY_A)==GLFW_PRESS){
     position.x -= speed * dt;
+    isMoving = true;
+    playerState = State::LEFT;
   }
   if(glfwGetKey(window,GLFW_KEY_D)==GLFW_PRESS){
     position.x += speed * dt;
+    isMoving = true;
+    playerState = State::RIGHT;
   }
-
+  
+  if(!isMoving){
+    playerState = State::IDLE;
+  }
+  
   // handle animation
-  animTime += dt;
-  if(animTime >= 1.0f/frame_ps){
-    uv_x += 1.0f;
-    if(uv_x >= nxf){
-      uv_x = 0.0f;
-      uv_y += 1.0f;
-      if(uv_y >= nyf){
-        uv_y = 0.0f;
+  handlePlayerState();
+  if(playerState != State::IDLE){
+    animTime += dt;
+    if(animTime >= 1.0f/frame_ps){
+      uv_x += 1.0f;
+      if(uv_x >= nxf){
+        uv_x = 0.0f;
       }
+      animTime = 0.0f;
     }
-    animTime = 0.0f;
+  }
+  else{
+    uv_y = 1.0f;
+    uv_x = 0.0f;
+  }
+}
+
+void Player::handlePlayerState(){
+  switch (playerState) {
+    case State::TOP: uv_y = 3.0f; break;
+    case State::DOWN: uv_y = 1.0f; break;
+    case State::LEFT: uv_y = 2.0f; break;
+    case State::RIGHT: uv_y = 0.0f; break;
+    default: uv_y = 0.0f; break;
   }
 }
 

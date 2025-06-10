@@ -120,7 +120,7 @@ int main(void){
   spriteSheet.setSamplerValue(pShader,"Player",0);
   
   Player player = Player(9.0f,4.0f,9.0f);
-  player.speed = 500.0f;
+  player.speed = 100.0f;
   
   float animationTime = 0.0f;
   float deltaTime = 0.0f;
