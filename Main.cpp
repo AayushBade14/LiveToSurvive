@@ -8,6 +8,8 @@
 #include "./Include/Memory/VBO.hpp"
 #include "./Include/Memory/VAO.hpp"
 
+#include "./Player/Player.hpp"
+
 #include <iostream>
 
 #define WIDTH 1920
@@ -93,8 +95,8 @@ int main(void){
   
   float tilemap[WORLD_X][WORLD_Y] = {
     {1,4,5,6,1},
-    {1,2,2,7,2},
-    {1,2,2,2,2},
+    {1,2,2,7,1},
+    {1,2,2,2,1},
     {1,2,2,2,1},
     {1,1,1,1,1}
   };
@@ -108,11 +110,18 @@ int main(void){
 
   Texture tile = Texture("./Assets/Textures/Tileset.png",GL_RGBA);
   Shader shader = Shader("./Assets/Shaders/vert.glsl","./Assets/Shaders/frag.glsl");
+  
+  Texture spriteSheet = Texture("./Assets/Textures/Player.png",GL_RGBA);
+  Shader pShader = Shader("./Assets/Shaders/pVert.glsl","./Assets/Shaders/pFrag.glsl");
 
   glfwSetFramebufferSizeCallback(window,framebuffer_size_callback);
   
   tile.setSamplerValue(shader,"Tileset",0);
-
+  spriteSheet.setSamplerValue(pShader,"Player",0);
+  
+  Player player = Player(9.0f,4.0f,9.0f);
+  player.speed = 500.0f;
+  
   float animationTime = 0.0f;
   float deltaTime = 0.0f;
   float lastFrame = 0.0f;
@@ -179,8 +188,10 @@ int main(void){
 
       }
     }
+    
+    player.update(window,deltaTime);
+    player.render(pShader,spriteSheet);
 
-    vao.unbind();
     tile.unbind();
 
     glfwPollEvents();
@@ -189,9 +200,6 @@ int main(void){
 
   glfwTerminate();
   glfwDestroyWindow(window);
-
-  //glDeleteBuffers(1,&VBO);
-  //glDeleteVertexArrays(1,&VAO);
 
   return 0;
 }

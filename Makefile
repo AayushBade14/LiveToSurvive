@@ -18,6 +18,7 @@ OBJS = ./Main.o \
 			 ./Include/Texture/Texture.o \
 			 ./Include/Memory/VBO.o \
 			 ./Include/Memory/VAO.o \
+			 ./Player/Player.o \
 			 ./Include/glad/glad.o
 
 #target
