@@ -90,6 +90,7 @@ int main(void){
     glClearColor(0.0f,0.0f,0.0f,1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
     
+    tilemap.playerPos = player.position - glm::vec3(960.0f,540.0f,0.0f);
 
     vao.bind();
 

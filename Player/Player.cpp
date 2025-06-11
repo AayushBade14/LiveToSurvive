@@ -68,8 +68,9 @@ void Player::handlePlayerState(){
 void Player::render(Shader& shader, Texture& texture){
   texture.assignTextureUnit(0);
   shader.use();
+  glm::vec3 camPos = position - glm::vec3(960.0f,540.0f,0.0f);
   glm::mat4 model = glm::mat4(1.0f);
-  glm::mat4 view = glm::mat4(1.0f);
+  glm::mat4 view = glm::translate(glm::mat4(1.0f),-camPos);
   glm::mat4 projection = glm::ortho(0.0f,1920.0f,0.0f,1080.0f);
   model = glm::translate(model,position);
 

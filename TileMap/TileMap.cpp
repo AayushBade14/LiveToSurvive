@@ -116,7 +116,7 @@ void TileMap::decideTile(int t){
 void TileMap::render(Shader &shader, Texture &texture){
   
   glm::mat4 model = glm::mat4(1.0f);
-  glm::mat4 view = glm::mat4(1.0f);
+  glm::mat4 view = glm::translate(glm::mat4(1.0f),-playerPos);
   glm::mat4 projection = glm::ortho(0.0f,(float)windowX,0.0f,(float)windowY);
   
   float xOffset = (windowX/2.0f) - (tileSize*(mapCols/2.0f) - (tileSize/2.0f));

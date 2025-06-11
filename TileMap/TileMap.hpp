@@ -19,7 +19,7 @@ class TileMap{
     float uv_x,uv_y;
     float tileSize;
     int windowX, windowY;
-
+    glm::vec3 playerPos;
     void render(Shader &shader, Texture &texture);
   private:
     
