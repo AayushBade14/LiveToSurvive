@@ -13,6 +13,7 @@ enum State{
   RIGHT
 };
 
+
 class Player{
   public:
     float nxf, nyf;
@@ -26,7 +27,7 @@ class Player{
 
     void update(GLFWwindow *window,float dt);
     void render(Shader &shader, Texture &texture);
-
+    
   private:
     bool isMoving = false;
     State playerState = State::IDLE;
