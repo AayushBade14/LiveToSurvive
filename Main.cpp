@@ -19,10 +19,14 @@
 
 struct Bullet{
   glm::vec3 position;
+  glm::vec3 direction;
   bool isCharging;
   bool isActive;
   float range;
 };
+
+double mouse_x = WIDTH/2.0f;
+double mouse_y = HEIGHT/2.0f;
 
 void framebuffer_size_callback(GLFWwindow *window,int width,int height);
 
@@ -110,12 +114,17 @@ int main(void){
     glClearColor(0.0f,0.0f,0.0f,1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
     
+    glfwGetCursorPos(window,&mouse_x,&mouse_y);
+    glm::vec3 mouse_dir = glm::vec3(mouse_x,(float)HEIGHT - mouse_y,0.0f);
+    glm::vec3 dir = 500.0f * glm::normalize(mouse_dir - player.position);
+    
     static float lastShot = 0.0f;
     static bool spaceHeld = false;
 
-    if(glfwGetKey(window,GLFW_KEY_SPACE)==GLFW_PRESS && !spaceHeld){
+    if(glfwGetMouseButton(window,GLFW_MOUSE_BUTTON_LEFT)==GLFW_PRESS && !spaceHeld){
       Bullet bullet;
       bullet.position = player.position;
+      bullet.direction = dir;
       bullet.isActive = true;
       bullet.isCharging = true;
       bullet.range = 0.5f;
@@ -123,14 +132,14 @@ int main(void){
       spaceHeld = true;
     }
 
-    if(glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS){
+    if(glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS){
       // While holding, increase range of last bullet
       if(!bullets.empty() && bullets.back().isCharging){
           bullets.back().range += deltaTime * 2.0f; // adjust multiplier as needed
       }
     }
 
-    if(glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_RELEASE && spaceHeld){
+    if(glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE && spaceHeld){
       // On release, stop charging and let bullet fly
       if(!bullets.empty()){
           bullets.back().isCharging = false;
@@ -156,7 +165,7 @@ int main(void){
       Bullet &b = bullets[i];
       if(b.isActive){
         if(!b.isCharging){
-          b.position += glm::vec3(500.0f,0.0f,0.0f) * deltaTime;
+          b.position += b.direction * deltaTime;
         }
         glm::mat4 model = glm::mat4(1.0f); 
         
